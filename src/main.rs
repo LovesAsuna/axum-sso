@@ -1,6 +1,8 @@
 use axum::routing::get;
-use axum::Router;
+use axum::{middleware, Router};
 use tokio::net::TcpListener;
+mod error;
+mod middleware;
 
 #[tokio::main]
 async fn main() {
@@ -14,5 +16,7 @@ async fn main() {
 }
 
 fn app() -> Router {
-    Router::new().route("/", get(|| async { "hello world" }))
+    Router::new()
+        .route("/", get(|| async { "hello world" }))
+        .layer(middleware::from_fn(|| {}))
 }
