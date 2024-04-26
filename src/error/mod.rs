@@ -1,4 +1,4 @@
-use axum::response::{IntoResponse, Response};
+use axum::response::{IntoResponse, Redirect, Response};
 use http::StatusCode;
 
 #[derive(Debug)]
@@ -18,6 +18,14 @@ where
 {
     fn from(error: E) -> Self {
         Self(error.into())
+    }
+}
+
+pub struct AuthRedirect;
+
+impl IntoResponse for AuthRedirect {
+    fn into_response(self) -> Response {
+        Redirect::temporary("/login").into_response()
     }
 }
 
