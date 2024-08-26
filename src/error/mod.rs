@@ -29,3 +29,10 @@ impl IntoResponse for AuthRedirect {
     }
 }
 
+pub struct RegisterRedirect;
+
+impl IntoResponse for RegisterRedirect {
+    fn into_response(self) -> Response {
+        Redirect::temporary("/register").into_response()
+    }
+}
